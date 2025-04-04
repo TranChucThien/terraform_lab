@@ -6,8 +6,10 @@ resource "aws_instance" "my_ec2_instance" {
   ami           = var.instance_ami
   instance_type = var.instance_type
   key_name      = var.key_name
-
-  security_groups = [aws_security_group.my_sg.name]
+  subnet_id     = var.subnet_id  
+  # vpc_security_group_ids = var.security_group_ids
+  vpc_security_group_ids = [aws_security_group.my_sg.id] # Uncomment if using a VPC module
+  # security_groups = [aws_security_group.my_sg.name]
 
   tags = {
     Name = var.ec2_name
@@ -37,6 +39,9 @@ resource "aws_instance" "my_ec2_instance" {
 resource "aws_security_group" "my_sg" {
   name        = var.sg_name
   description = var.sg_description
+  vpc_id      = var.vpc_id
+  # vpc_id      = aws_vpc.this.id # Uncomment if using a VPC module
+
 
   dynamic "ingress" {
     for_each = var.ingress_rules

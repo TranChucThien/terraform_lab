@@ -58,3 +58,24 @@ variable "key_path" {
   default     = "./tct-key-pair.pem" # Đường dẫn đến private key
   
 }
+
+variable "subnet_id" {
+  description = "Subnet ID for the EC2 instance"
+  type        = string
+  
+  
+}
+
+variable "security_group_ids" {
+  description = "List of security group IDs to associate with the EC2 instance"
+  type        = list(string)
+  default     = []
+  
+}
+
+variable "vpc_id" {
+  description = "VPC ID where the security group is located"
+  type        = string
+  default     = ""
+  
+}
